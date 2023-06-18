@@ -7,7 +7,6 @@ import Navbar from "@/components/nav/navbar";
 import Card from "@/components/card/card";
 import SectionCards from "@/components/card/section-cards";
 import getVideos, { getPopularVideos } from "@/lib/videos";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export async function getServerSideProps() {
