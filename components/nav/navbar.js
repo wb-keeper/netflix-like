@@ -1,11 +1,27 @@
 import styles from "./navbar.module.css";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import magic from "@/lib/magic-client";
+import { log } from "next/dist/server/typescript/utils";
 
-const Navbar = ({ username }) => {
+const Navbar = () => {
   const router = useRouter();
+  const [username, setUsername] = useState("");
+  useEffect(() => {
+    try {
+      const getUsername = async () => {
+        const { email } = await magic.user.getMetadata();
+        if (email) {
+          setUsername(email);
+        }
+      };
+      getUsername();
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   function handleOnClickMyList(e) {
     e.preventDefault();
