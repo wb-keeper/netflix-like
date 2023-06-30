@@ -27,7 +27,16 @@ const Navbar = () => {
     e.preventDefault();
     router.push("/browse/my-list/");
   }
-
+  async function handleSignout(e) {
+    e.preventDefault();
+    try {
+      await magic.user.logout();
+      router.push("/login");
+    } catch (e) {
+      console.log(e);
+      router.push("/login");
+    }
+  }
   function handleOnClickHome(e) {
     e.preventDefault();
     router.push("/");
@@ -74,7 +83,11 @@ const Navbar = () => {
             {showDropDown && (
               <div className={styles.navDropdown}>
                 <div>
-                  <Link href="/login" className={styles.linkName}>
+                  <Link
+                    href="/login"
+                    onClick={handleSignout}
+                    className={styles.linkName}
+                  >
                     Sign out
                   </Link>
                   <div className={styles.lineWrapper}></div>
